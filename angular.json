@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "assignment-portal"
+    }
+  },
+  "defaultProject": "assignment-portal",
+  "cli": {
+    "analytics": false
+  }
 }

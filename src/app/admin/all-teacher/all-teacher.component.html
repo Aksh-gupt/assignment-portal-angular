@@ -1,0 +1,46 @@
+<div class="new-wrapper" *ngIf="present">
+    <a [routerLink] = "['/admin/addteacher']" class="btn btn-primary add-button  col-md-offset-11">+ New</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Teacher ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Contact No.</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let teacher of teachers; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{teacher.name}}</td>
+                <td>{{teacher.department}}</td>
+                <td>{{teacher.email}}</td>
+                <td *ngIf="teacher.contact !== ''; else nonumber">{{teacher.contant}}</td>
+                <ng-template #nonumber><span class="elsepart">fadlfkjaldkjfalk</span></ng-template>
+                <td>
+                    <button type="button" class="btn btn-primary btn-xs dt-edit" >
+                        Edit
+                    </button>
+                </td>
+                <td> 
+                    <button type="button" class="btn btn-danger btn-xs dt-delete">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        
+        </tbody>
+    </table>
+</div>
+
+<div class="start" *ngIf="!present" style="margin-top: 100px;">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>

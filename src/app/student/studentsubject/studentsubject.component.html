@@ -1,0 +1,29 @@
+<div class="body">
+    <div id="main-contents">
+        <div class="row">
+            <div class="column" *ngFor="let subject of mySubjects">
+                <div class="card" [routerLink] = "['/student','assignments']"
+                [queryParams]="{subid: subject.subid, bsss: subject.bsss}"
+                [fragment]="subject.subject" >
+                    <div class="subject_name">  
+                        <h5>{{subject.subject}}</h5>
+                        <br/>
+                    </div>
+                    <h6>{{subject.stream}}-{{subject.section}}</h6>
+                    <h6>{{subject.sem}} sem</h6>
+                </div>
+            </div>
+            
+
+            <!-- <div class="column">
+                <div class="card">
+                    <div class="subject_name">  <h5>ACN</h5>
+                        <br/>
+                    </div>
+                    <h6>CSE-1</h6>
+                    <h6>7th sem</h6>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+
+/*navbar*/
+.navbar{
+    /* position: sticky !important; */
+    min-height:180 px;
+    margin-bottom: 0px !important;
+}
+
+.navbar-text{
+    font-size: x-large;
+}
+    
+.navbar-inverse {
+    background-color: #3e65a0;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color:white;
+    font-size: medium;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.navbar-inverse .navbar-nav>li>a:hover {
+    background-color:#001a4d;
+}
+
+/*footer*/
+.logo{
+    width: 100px;
+    height:100px;
+}
+  
+.site-footer{
+    background-color: #3e65a0;
+    padding:45px 0 20px;
+    font-size:15px;
+    line-height:24px;
+    color : white;
+}
+.site-footer hr{
+    border-top-color:#bbb;
+    opacity:0.5;
+}
+.site-footer hr.small{
+    margin:20px 0;
+}
+.footer-links{
+    padding-left:0;
+    list-style:none
+}
+.footer-links li{
+    display:block
+}
+.footer-links a{
+    color: white;
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover{
+    color:darkkhaki;
+    text-decoration: underline;
+    text-decoration:none;
+}
+.footer-links.inline li{
+    display:inline-block
+}
+.site-footer .social-icons{
+    text-align:right
+}
+.site-footer .social-icons a{
+    width:40px;
+    height:40px;
+    line-height:40px;
+    margin-left:6px;
+    margin-right:0;
+    border-radius:100%;
+    background-color:white
+}

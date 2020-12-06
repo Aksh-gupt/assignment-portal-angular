@@ -1,0 +1,112 @@
+<div class="body">
+    <div id="main-contents">
+        <div class="body-heading"><br/>{{subject}} Assignments</div>
+        <hr style="color:#d9d9d9; background-color:#d9d9d9">
+        <div class="collapse-heading collapsed " data-toggle="collapse" data-target="#Todo">
+            <div class="collapse-arrow">
+                <span class="fas fa-play"></span>
+            </div>
+            &nbsp;Pending Assignments
+        </div>
+        <div  id="Todo" class="collapse ">
+            <div class="row">
+                <div class="column" *ngFor="let assignment of assignments">
+                    <div class="card">
+                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div class="dropdown" style="float:right">
+                            <div data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h iconstyle"></i>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                <li><a href="#"><i class="fa fa-edit"></i>  Edit</a></li>
+                            </ul>    
+                        </div>
+                        <div class="card-body">
+                            <div class="subject_name">
+                                <h5>{{assignment.name}}</h5>
+                                <br/>
+                            </div>
+                            <h6>{{stream}}-{{section}}</h6>
+                            <h6>{{sem}}th sem</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="collapse-heading collapsed" data-toggle="collapse" data-target="#Completed">
+            <div class="collapse-arrow">
+                <span class="fas fa-play"></span>
+            </div>&nbsp;Completed Assignments
+        </div>
+        <div id="Completed" class="collapse">
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div class="dropdown" style="float:right">
+                            <div data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h iconstyle"></i>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                <li><a href="#"><i class="fa fa-edit"></i>  Edit</a></li>
+                            </ul>    
+                        </div>
+                        <div class="card-body">
+                            <div class="subject_name">  <h5>ACN</h5>
+                            <br/>
+                            </div>
+                            <h6>CSE-1</h6>
+                            <h6>7th sem</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div class="dropdown" style="float:right">
+                            <div data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h iconstyle"></i>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                <li><a href="#"><i class="fa fa-edit"></i>  Edit</a></li>
+                            </ul>    
+                        </div>
+                        <div class="card-body">
+                            <div class="subject_name">  <h5>ACN</h5>
+                            <br/>
+                            </div>
+                            <h6>CSE-1</h6>
+                            <h6>7th sem</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div class="dropdown" style="float:right">
+                            <div data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h iconstyle"></i>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                <li><a href="#"><i class="fa fa-edit"></i>  Edit</a></li>
+                            </ul>    
+                        </div>
+                        <div class="card-body">
+                            <div class="subject_name">  <h5>ACN</h5>
+                            <br/>
+                            </div>
+                            <h6>CSE-1</h6>
+                            <h6>7th sem</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
