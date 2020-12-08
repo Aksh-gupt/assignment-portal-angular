@@ -49,12 +49,52 @@ export class StudentService{
         return this.http.post("http://localhost:3000/student/subject/assignment",body,{headers: headers});
     }
 
+    submitAssignment(fd){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post("http://localhost:3000/submission/make",fd,{headers: headers});
+    }
+
     getMySubjectToShow(){
         return this.mySubjects.slice();
     }
 
+    getDescriptionOfAssignment(_id:string){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/assignment/details/${_id}`, {headers: headers});
+    }
+
+    allMyAssignment(subid){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/allsubmission/${subid}`, {headers: headers});
+    }
+
 
     clearOnLogout(){
+        this.mySubjects = [];
     }
 
     // TO GET THE TOKEN FROM THE COOKIE

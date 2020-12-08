@@ -180,7 +180,7 @@ export class AuthService{
             (response) => {
                 console.log(response)
                 //  CLEAR ON LOGOUT WILL BE CALL 
-                // this.teacherService.clearOnLogout();
+                this.studentService.clearOnLogout();
                 this.afterLogout();
             },(error) => {
                 console.log(error);
