@@ -24,6 +24,7 @@ import { SubjectpageComponent } from './teacher/subjectpage/subjectpage.componen
 import { StudentsubjectComponent } from './student/studentsubject/studentsubject.component';
 import { StudentService } from './student/student.service';
 import { SubjectassignmentComponent } from './student/subjectassignment/subjectassignment.component';
+import { StudentsubmissionComponent } from './teacher/studentsubmission/studentsubmission.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SubjectassignmentComponent } from './student/subjectassignment/subjecta
     ShowassignmentComponent,
     SubjectpageComponent,
     StudentsubjectComponent,
-    SubjectassignmentComponent
+    SubjectassignmentComponent,
+    StudentsubmissionComponent
   ],
   imports: [
     BrowserModule,

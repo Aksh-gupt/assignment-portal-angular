@@ -116,6 +116,19 @@ export class TeacherService{
         return this.http.post("http://localhost:3000/allassignment",send,{headers: headers})
     }
 
+    getStudentSubmission(subid, assignmentid){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/teacher/allsubmission/${subid}/${assignmentid}`,{headers: headers})
+    }
+
     getAssignmentPdf(_id){
         var token = this.getCookieToken();
         token = 'Bearer ' + token;
@@ -126,9 +139,21 @@ export class TeacherService{
         }
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
-        // ariable_name=; 
         console.log(this.dom.bypassSecurityTrustResourceUrl(`http://localhost:3000/assignment/${_id}`))
         // return this.http.get(`http://localhost:3000/assignment/${_id}`,{headers: headers, responseType: 'blob'});
+    }
+
+    changeStatusOfAssignmentSolution(data){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/teacher/reviewassignment',data,{headers: headers});
     }
 
     // TO CLEAR ALL THE SUBJECT STORE IN ANGULAR ON LOGOUT AS TEACHER

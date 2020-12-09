@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from '../student.service';
-import { ShowStudentAssignment } from '../../shared/showstudentassignment.model';
+import { ShowStudentAssignment } from '../../shared/showstudentassignmentpending.model';
+import { StudentCompleteAssignment } from '../../shared/studentcompleteassignment.model';
 
 @Component({
   selector: 'app-subjectassignment',
@@ -18,7 +19,7 @@ export class SubjectassignmentComponent implements OnInit {
   section:number;
   assignmentsPending:ShowStudentAssignment[] = [];
   assignmentsComplete:ShowStudentAssignment[] = [];
-  completeAssignmentId:string[] = [];
+  completeAssignmentId:StudentCompleteAssignment[] = [];
 
   getDescriptionLoading:boolean = false;
   assignmentDescription:any = {
@@ -54,11 +55,14 @@ export class SubjectassignmentComponent implements OnInit {
 
     this.studentService.allMyAssignment(this.subid).subscribe(
       (response:any) => {
-        console.log(response)
+        // console.log(response,"this")
         var len = response.length;
         for(var i=0;i<len;i++){
-          this.completeAssignmentId.push(response[i].assignmentid);
+          this.completeAssignmentId.push(
+            new StudentCompleteAssignment(response[i].assignmentid,response[i].status,response[i].createdAt)
+          );
         }
+        // console.log(this.completeAssignmentId);
         this.callGetAssignment(body)
       },(error) => {
         console.log(error);
@@ -70,13 +74,17 @@ export class SubjectassignmentComponent implements OnInit {
   callGetAssignment(body){
     this.studentService.getAssignments(body).subscribe(
       (response:any) => {
-        console.log(response)
+        // console.log(response)
         var len1 = this.completeAssignmentId.length;
         var len = response.length;
         for(var i=0;i<len;i++){
           var flag = 0;
+          var status,createdAt;
           for(var j=0;j<len1;j++){
-            if(response[i]._id === this.completeAssignmentId[j]){
+            if(response[i]._id === this.completeAssignmentId[j]._id){
+              // console.log(this.completeAssignmentId[j].status)
+              status = this.completeAssignmentId[j].status;
+              createdAt = this.completeAssignmentId[j].createdAt;
               flag = 1;
               break;
             }
@@ -87,8 +95,9 @@ export class SubjectassignmentComponent implements OnInit {
             )
           }
           else{
+            // console.log(status);
             this.assignmentsComplete.push(
-              new ShowStudentAssignment(response[i]._id,response[i].name)
+              new ShowStudentAssignment(response[i]._id,response[i].name,status,createdAt)
             )
           }
           
@@ -116,7 +125,7 @@ export class SubjectassignmentComponent implements OnInit {
     this.getDescriptionLoading = true;
     this.studentService.getDescriptionOfAssignment(_id).subscribe(
       (response:any) => {
-        console.log(response);
+        // console.log(response);
         this.assignmentDescription.last = response.assignment.last;
         this.assignmentDescription.description = response.assignment.description;
         this.assignmentDescription.teachername = response.teacher.name;
@@ -141,7 +150,7 @@ export class SubjectassignmentComponent implements OnInit {
   drop(event){
     event.preventDefault();
     document.getElementById("dropzone").className = 'dropzone'
-    console.log(event.dataTransfer.files);
+    // console.log(event.dataTransfer.files);
     this.manyFiles = false;
     this.docFormat = true;
     if(event.dataTransfer.files.length > 1){
@@ -170,7 +179,7 @@ export class SubjectassignmentComponent implements OnInit {
       this.fileSelected = true;
       this.AssignmentFile = <File>event.target.files[0];
     }
-    console.log(this.AssignmentFile);
+    // console.log(this.AssignmentFile);
   }
 
   submitAssignmentCalls(id:string){
@@ -191,10 +200,11 @@ export class SubjectassignmentComponent implements OnInit {
     });
     fd.append('overrides', blobOverrides);
     this.studentService.submitAssignment(fd).subscribe(
-      (response) => {
-        console.log(response)
+      (response:any) => {
+        // console.log(response)
         this.assignmentsPending = this.assignmentsPending.filter((assignment) => {
           if(assignment._id === this.assignmentId){
+            assignment.change(response.status, response.createdAt);
             this.assignmentsComplete.push(assignment);
             return false;
           }

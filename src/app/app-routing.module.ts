@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { StudentComponent } from './student/student.component';
 import { StudentsubjectComponent } from './student/studentsubject/studentsubject.component';
 import { SubjectassignmentComponent } from './student/subjectassignment/subjectassignment.component';
+import { StudentsubmissionComponent } from './teacher/studentsubmission/studentsubmission.component';
 
 const routes: Routes = [
   {path: '',component: HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path:'teacher', component: TeacherComponent,children:[
     {path:'subject', component: SubjectpageComponent},
     {path: 'assignments', component: AssignmentComponent},
+    {path: 'assignment/submissions', component: StudentsubmissionComponent},
     {path: 'assignment/:id', component: ShowassignmentComponent},
     {path: '**', redirectTo: 'subject'}
   ]},

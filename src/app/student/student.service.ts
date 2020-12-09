@@ -89,7 +89,7 @@ export class StudentService{
         }
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
-        return this.http.get(`http://localhost:3000/allsubmission/${subid}`, {headers: headers});
+        return this.http.get(`http://localhost:3000/student/allsubmission/${subid}`, {headers: headers});
     }
 
 

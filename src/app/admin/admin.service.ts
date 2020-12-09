@@ -63,6 +63,45 @@ export class AdminService{
         return this.http.post('http://localhost:3000/subject/add',subject,{headers: headers});
     }
 
+    updateTeacher(_id,teacher){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 3){
+            alert("Only admin can create subject");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`http://localhost:3000/teacher/update/${_id}`,teacher,{headers: headers});
+    }
+
+    updateStudent(_id,student){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 3){
+            alert("Only admin can create subject");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`http://localhost:3000/student/update/${_id}`,student,{headers: headers});
+    }
+
+    updateSubject(_id,subject){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 3){
+            alert("Only admin can create subject");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(`http://localhost:3000/subject/update/${_id}`,subject,{headers: headers});
+    }
+
     addStudent(student:any){
         this.students.push(
             new Student(student._id,student.name,student.email,student.enrollment,student.bss)
