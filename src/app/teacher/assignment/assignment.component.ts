@@ -12,11 +12,19 @@ import { ShowAllAssignment } from '../../shared/showallassignment.model';
 })
 export class AssignmentComponent implements OnInit {
   filled:boolean = false;
+  filledUpdateDate:boolean = false;
   fileToUpload: File = null;
   fileSelected:boolean = false;
   docFormat:boolean = true;
   subid:string;
   bsss:string;
+
+  updateLastDate:string;
+  currentLastDate:string;
+  todaysDate:string;
+  updateLastDateAssignmentId:string;
+  updateAssignmentIndex:number;
+  updateLastDateSuccessfully:boolean = false;
 
   allAssignment:ShowAllAssignment[] = []
   sem:number;
@@ -28,6 +36,8 @@ export class AssignmentComponent implements OnInit {
   }
 
   ngOnInit() {
+    var d = new Date();
+    this.todaysDate = d.getFullYear() + "-"+ (d.getMonth()+1) + "-" + d.getDate();
     this.subid = this.route.snapshot.queryParams.subid;
     this.bsss = this.route.snapshot.queryParams.bsss;
     this.sem = Math.floor(parseInt(this.bsss)%10);
@@ -116,7 +126,7 @@ export class AssignmentComponent implements OnInit {
       (response:any) => {
         // console.log(response)
         this.allAssignment.push(
-          new ShowAllAssignment(response._id,response.name)
+          new ShowAllAssignment(response._id,response.name,response.last)
         )
         this.filled = false;
         document.getElementById("submit").innerHTML = "Add <span class='glyphicon glyphicon-send'></span>"
@@ -124,6 +134,59 @@ export class AssignmentComponent implements OnInit {
         console.log(error)
         this.filled = false;
         document.getElementById("submit").innerHTML = "Add <span class='glyphicon glyphicon-send'></span>"
+      }
+    )
+  }
+
+  updateLastDateCalls(last:string,_id,ind){
+    this.updateLastDateSuccessfully = false;
+    this.updateLastDate = last;
+    this.currentLastDate = last;
+    this.updateLastDateAssignmentId = _id;
+    this.updateAssignmentIndex = ind;
+    // console.log(this.todaysDate);
+    // console.log(this.updateLastDate);
+  }
+
+  updateSubmissionLastDate(){
+    this.filledUpdateDate = true;
+    document.getElementById("updatelast").innerHTML = "Loading...";
+    const data = {
+      _id: this.updateLastDateAssignmentId,
+      last: this.updateLastDate
+    }
+    this.teacherService.updateAssignmentLastDate(data).subscribe(
+      (response:any) => {
+        console.log(response);
+        this.allAssignment[this.updateAssignmentIndex].last = response.last;
+        this.updateLastDateSuccessfully = true;
+        this.filledUpdateDate = false;
+        document.getElementById("updatelast").innerHTML = "Update <span class='glyphicon glyphicon-send'></span>";
+      },(error) => {
+        console.log(error);
+        this.filledUpdateDate = false;
+        document.getElementById("updatelast").innerHTML = "Update <span class='glyphicon glyphicon-send'></span>";
+      }
+    )
+  }
+
+  getAssignmentLoading:boolean = false;
+  assignmentDetailDescription:string;
+  assignmentDetailLastdate:string;
+  getDescriptionAssignment(_id:string,ind){
+    this.getAssignmentLoading = true;
+    this.teacherService.getAssignmentDetails(_id).subscribe(
+      (response:any) => {
+        // console.log(response);
+        this.assignmentDetailDescription = response.description;
+        if(response.description === ""){
+          this.assignmentDetailDescription = "---";
+        }
+        this.assignmentDetailLastdate = this.allAssignment[ind].last;
+        this.getAssignmentLoading = false;
+      },(error) => {
+        console.log(error);
+        this.getAssignmentLoading = false;
       }
     )
   }

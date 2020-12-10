@@ -113,3 +113,42 @@ table th.last {
         transform-origin: right;
     }
 }
+
+
+/*tooltips*/
+.tooltip1 {
+    position: relative;
+   
+    border-bottom: 1px dotted #333333;
+  }
+  
+  .tooltip1 .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #000;
+    /* opacity:0.9; */
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  
+  .tooltip1 .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+  }
+  
+  .tooltip1:hover .tooltiptext {
+    visibility: visible;
+  }

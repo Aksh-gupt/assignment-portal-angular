@@ -29,14 +29,12 @@ export class SubjectassignmentComponent implements OnInit {
     teacherdept: ""
   }
 
-  AssignmentFile:File = null;
-
-  assignmentId:string;
-
+  
+  
   constructor(private route:ActivatedRoute, private studentService:StudentService) {
     this.getDescriptionLoading = false;
   }
-
+  
   ngOnInit(): void {
     this.subid = this.route.snapshot.queryParams.subid;
     this.bsss = this.route.snapshot.queryParams.bsss;
@@ -50,9 +48,9 @@ export class SubjectassignmentComponent implements OnInit {
     this.stream = this.convertToStream(bss%10);
     bss = Math.floor(bss/10);
     this.section = bss%10;
-
     
-
+    
+    
     this.studentService.allMyAssignment(this.subid).subscribe(
       (response:any) => {
         // console.log(response,"this")
@@ -70,7 +68,7 @@ export class SubjectassignmentComponent implements OnInit {
       }
     )
   }
-
+  
   callGetAssignment(body){
     this.studentService.getAssignments(body).subscribe(
       (response:any) => {
@@ -107,7 +105,7 @@ export class SubjectassignmentComponent implements OnInit {
       }
     )
   }
-
+  
   convertToStream(n:number){
     if(n === 1){
       return "CSE";
@@ -120,7 +118,7 @@ export class SubjectassignmentComponent implements OnInit {
     }
     return "EEE";
   }
-
+  
   getDescription(_id:string){
     this.getDescriptionLoading = true;
     this.studentService.getDescriptionOfAssignment(_id).subscribe(
@@ -128,6 +126,9 @@ export class SubjectassignmentComponent implements OnInit {
         // console.log(response);
         this.assignmentDescription.last = response.assignment.last;
         this.assignmentDescription.description = response.assignment.description;
+        if(response.assignment.description === ""){
+          this.assignmentDescription.description = "---";
+        }
         this.assignmentDescription.teachername = response.teacher.name;
         this.assignmentDescription.teacherdept = response.teacher.department;
         this.getDescriptionLoading = false;
@@ -137,7 +138,7 @@ export class SubjectassignmentComponent implements OnInit {
       }
     )
   }
-
+  
   dragOverEffect(){
     document.getElementById("dropzone").className = "dropzone dragover";
     return false;
@@ -146,7 +147,6 @@ export class SubjectassignmentComponent implements OnInit {
     document.getElementById("dropzone").className = "dropzone";
     return false;
   }
-  manyFiles:boolean = false;
   drop(event){
     event.preventDefault();
     document.getElementById("dropzone").className = 'dropzone'
@@ -164,9 +164,14 @@ export class SubjectassignmentComponent implements OnInit {
       this.AssignmentFile = <File>event.dataTransfer.files[0];
     }
   }
-
+  
+  AssignmentFile:File = null;
+  manyFiles:boolean = false;
+  submitSuccessfully:boolean = false;
   docFormat:boolean = true;
   fileSelected:boolean = false;
+  assignmentId:string;
+  
   onFileSelected(event){
     this.manyFiles = false;
     if(!event.target.files[0].name.endsWith(".pdf")){
@@ -182,11 +187,16 @@ export class SubjectassignmentComponent implements OnInit {
     // console.log(this.AssignmentFile);
   }
 
-  submitAssignmentCalls(id:string){
+  submitUpdateAssignmentCalls(id:string){
     this.assignmentId = id; 
+
+    this.submitSuccessfully = false;
+    this.docFormat = true;
+    this.AssignmentFile = null;
+    this.fileSelected = false;
+    this.manyFiles = false;
   }
 
-  submitSuccessfully:boolean = false;
   submitAssignment(){
     var fd:FormData = new FormData();
     fd.append('document',this.AssignmentFile,this.AssignmentFile.name);
@@ -209,6 +219,35 @@ export class SubjectassignmentComponent implements OnInit {
             return false;
           }
           return true;
+        })
+        this.submitSuccessfully = true;
+        // this.AssignmentFile = null;
+        // this.fileSelected = false;
+        // this.docFormat = true;
+      },(error) => {
+        console.log(error)
+      }
+    )
+  }
+
+  updateAssignment(){
+    var fd:FormData = new FormData();
+    fd.append('document',this.AssignmentFile,this.AssignmentFile.name);
+
+    const overrides = {
+      _id: this.assignmentId
+    }
+    const blobOverrides = new Blob([JSON.stringify(overrides)], {
+      type: 'application/json',
+    });
+    fd.append('overrides', blobOverrides);
+    this.studentService.updateAssignment(fd).subscribe(
+      (response:any) => {
+        // console.log(response)
+        this.assignmentsComplete.map((assignment) => {
+          if(assignment._id === this.assignmentId){
+            assignment.change(response.status, response.createdAt);
+          }
         })
         this.submitSuccessfully = true;
       },(error) => {

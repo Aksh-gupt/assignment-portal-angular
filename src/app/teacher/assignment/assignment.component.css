@@ -2,9 +2,16 @@
     background-color: #f2f2f2;
 }
 .modal-content{
-    width:60%;
-    height:100px;
-}
+    max-width:60%;
+    height:250px;
+    margin-top:200px;
+  }
+  .modal-text{
+    color:#8c8c8c;
+  }
+  td{
+    padding :10px;
+  }
 .close{
     margin-top:20px;
     margin-right:20px;

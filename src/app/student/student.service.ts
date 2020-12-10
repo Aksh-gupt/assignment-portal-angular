@@ -62,6 +62,19 @@ export class StudentService{
         return this.http.post("http://localhost:3000/submission/make",fd,{headers: headers});
     }
 
+    updateAssignment(fd){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.post("http://localhost:3000/submission/update",fd,{headers: headers});
+    }
+
     getMySubjectToShow(){
         return this.mySubjects.slice();
     }

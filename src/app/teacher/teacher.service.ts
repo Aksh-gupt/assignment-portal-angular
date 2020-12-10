@@ -156,6 +156,45 @@ export class TeacherService{
         return this.http.post('http://localhost:3000/teacher/reviewassignment',data,{headers: headers});
     }
 
+    updateAssignmentLastDate(data){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.patch('http://localhost:3000/assignment/updatelastdate',data,{headers: headers});
+    }
+
+    getAssignmentDetails(_id){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/teacher/assignmentdetail/${_id}`,{headers: headers});
+    }
+
+    getEnrollmentStudent(owner){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/student/enrollment/${owner}`,{headers: headers});
+    }
+
     // TO CLEAR ALL THE SUBJECT STORE IN ANGULAR ON LOGOUT AS TEACHER
     clearOnLogout(){
         this.allSubject = [];
