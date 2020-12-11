@@ -35,6 +35,19 @@ export class TeacherService{
         )
     }
 
+    getTeacherInfo(){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get("http://localhost:3000/teacher/teacherinfo",{headers: headers});
+    }
+
     // THIS IS TO GET ALL THE TEACHER'S SUBJECT FROM THE SERVER WHEN TEACHER LOGIN OR ON START OF THE SITE
     getMySubject(){
         var token = this.getCookieToken();
@@ -193,6 +206,19 @@ export class TeacherService{
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
         return this.http.get(`http://localhost:3000/student/enrollment/${owner}`,{headers: headers});
+    }
+
+    resetPassword(){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('http://localhost:3000/teacher/resetpassword',{headers: headers});
     }
 
     // TO CLEAR ALL THE SUBJECT STORE IN ANGULAR ON LOGOUT AS TEACHER

@@ -3,6 +3,7 @@ export class ShowStudentAssignment{
     public name:string;
     public status:string;
     public createdAt:string;
+    public updatedAt:string;
     constructor(_id:string, name:string,status:string="",createdAt:string=""){
         this._id = _id;
         this.name = name;

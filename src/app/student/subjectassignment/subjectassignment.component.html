@@ -10,7 +10,7 @@
         </div>
         <div  id="Todo" class="collapse ">
             <div class="row">
-                <div class="column" *ngFor="let assignment of assignmentsPending">
+                <div class="column" *ngFor="let assignment of assignmentsPending; let i = index">
                     <div class="card">
                         <div class="card-body col-md-10" style="height:30px"></div>
                         <div class="dropdown" style="float:right">
@@ -19,7 +19,7 @@
                             </div>
                             <ul class="dropdown-menu">
                                 <li (click)="submitUpdateAssignmentCalls(assignment._id)" ><a href="#submitModal"  data-toggle="modal" data-target="#submitModal"><i class="fa fa-upload"></i> Submit</a></li>
-                                <li (click)="getDescription(assignment._id)" ><a href="#infoModal" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i>  Info</a></li>
+                                <li (click)="getDescription(assignment._id,i,'pending')" ><a href="#infoModal" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i>  Info</a></li>
                             </ul>    
                         </div>
                         <div class="card-body">
@@ -43,7 +43,7 @@
         </div>
         <div id="Completed" class="collapse">
             <div class="row">
-                <div class="column" *ngFor="let assignment of assignmentsComplete">
+                <div class="column" *ngFor="let assignment of assignmentsComplete; let i = index">
                     <div class="card">
                         <div class="card-body col-md-10" style="height:30px"></div>
                         <div class="dropdown" style="float:right">
@@ -52,10 +52,10 @@
                             </div>
                             <ul class="dropdown-menu">
                                 <li *ngIf="assignment.status !== 'accepted'" (click)="submitUpdateAssignmentCalls(assignment._id)"><a href="#updateModal"  data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i> Update</a></li>
-                                <li (click)="getDescription(assignment._id)" ><a href="#infoModal" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i>  Info</a></li>
-                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                <li (click)="getDescription(assignment._id,i,'complete')" ><a href="#infoModal" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i>  Info</a></li>
+                                <!-- <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li> -->
                                 <li><a>Status: {{assignment.status}}</a></li>
-                                <li><a>CreatedAt: {{assignment.createdAt}}</a></li>
+                                <!-- <li><a>CreatedAt: {{assignment.createdAt}}</a></li> -->
                                 
                             </ul>    
                         </div>
@@ -130,6 +130,18 @@
                             <tr><td >Last Date:</td><td class="modal-text">{{assignmentDescription.last}}</td></tr>
                             <tr><td>Description:</td><td class="modal-text">{{assignmentDescription.description}}</td></tr>
                             <tr><td>Teacher:</td><td class="modal-text">{{assignmentDescription.teachername}}({{assignmentDescription.teacherdept}})</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-header" *ngIf="!desSectionPending && !getDescriptionLoading">
+                <h4 style="text-align: center;" class="modal-title">Submission Details</h4> 
+            </div>
+            <div class="modal-body" *ngIf="!desSectionPending && !getDescriptionLoading">
+                <div style="overflow-x:auto;">
+                    <div>
+                        <table style="margin-left: 20px;">
+                            <tr><td>Created at:</td><td class="modal-text">{{assignmentDescription.createdAt}}</td></tr>
                         </table>
                     </div>
                 </div>

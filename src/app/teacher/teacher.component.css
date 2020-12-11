@@ -5,10 +5,16 @@
     color:white;
     font-size: medium;
 }
+.navbar-inverse .navbar-nav .top{
+    color:white;
+    font-size: medium;
+}
 .navbar-inverse .navbar-nav>li>a:hover {
     color:darkkhaki;
 }
-      
+li{
+    cursor: pointer;
+}
 
 .start{
     display: flex;

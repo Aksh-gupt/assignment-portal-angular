@@ -189,6 +189,9 @@
     visibility: visible;
     -webkit-transition: all 0.3s ease;
   }
+  .form-structor .forget .center .submit-btn:disabled{
+    cursor: no-drop;
+  }
   .form-structor .forget .center .submit-btn:hover {
     transition: all 0.3s ease;
     background-color: rgba(0, 0, 0, 0.8);

@@ -21,7 +21,7 @@ export class StudentService{
         headers.append('Content-Type', 'application/json');
         this.http.get('http://localhost:3000/student/subjects',{headers: headers}).subscribe(
             (response:any)=>{
-                // console.log(response)
+                console.log(response)
                 var len = response.length;
                 for(var i=0;i<len;i++){
                     this.mySubjects.push(
@@ -34,6 +34,19 @@ export class StudentService{
                 console.log(error)
             }
         )
+    }
+
+    getStudentInfo(){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get("http://localhost:3000/student/studentinfo",{headers: headers});
     }
 
     getAssignments(body:any){
@@ -103,6 +116,19 @@ export class StudentService{
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
         return this.http.get(`http://localhost:3000/student/allsubmission/${subid}`, {headers: headers});
+    }
+
+    resetPassword(){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('http://localhost:3000/student/resetpassword',{headers: headers});
     }
 
 

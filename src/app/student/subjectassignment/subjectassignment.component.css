@@ -82,7 +82,12 @@ h5{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .dropdown{
+  width:20px;
+  border-radius:4px;
   cursor: pointer;
+}
+.dropdown:hover{
+  background-color: #d9d9d9;
 }
 .modal-content{
   max-width:80%;

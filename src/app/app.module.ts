@@ -25,6 +25,7 @@ import { StudentsubjectComponent } from './student/studentsubject/studentsubject
 import { StudentService } from './student/student.service';
 import { SubjectassignmentComponent } from './student/subjectassignment/subjectassignment.component';
 import { StudentsubmissionComponent } from './teacher/studentsubmission/studentsubmission.component';
+import { ResetpasswordComponent } from './shared/resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { StudentsubmissionComponent } from './teacher/studentsubmission/students
     SubjectpageComponent,
     StudentsubjectComponent,
     SubjectassignmentComponent,
-    StudentsubmissionComponent
+    StudentsubmissionComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

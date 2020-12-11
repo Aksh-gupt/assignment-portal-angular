@@ -22,11 +22,13 @@ export class SubjectassignmentComponent implements OnInit {
   completeAssignmentId:StudentCompleteAssignment[] = [];
 
   getDescriptionLoading:boolean = false;
+  desSectionPending:boolean;
   assignmentDescription:any = {
     last: "",
     description: "",
     teachername: "",
-    teacherdept: ""
+    teacherdept: "",
+    createdAt: ""
   }
 
   
@@ -50,7 +52,7 @@ export class SubjectassignmentComponent implements OnInit {
     this.section = bss%10;
     
     
-    
+    // THIS IS TO GET ALL THE COMPLETED ASSIGNMENT THAT STUDENT SUBMIT OF THAT SUBJECT
     this.studentService.allMyAssignment(this.subid).subscribe(
       (response:any) => {
         // console.log(response,"this")
@@ -61,7 +63,7 @@ export class SubjectassignmentComponent implements OnInit {
           );
         }
         // console.log(this.completeAssignmentId);
-        this.callGetAssignment(body)
+        this.callGetAssignment(body)  
       },(error) => {
         console.log(error);
         this.callGetAssignment(body)
@@ -69,6 +71,7 @@ export class SubjectassignmentComponent implements OnInit {
     )
   }
   
+  // THIS IS GET ALL THE ASSIGNMENT OF THAT SUBJECT THAT TEACHER ASSIGN
   callGetAssignment(body){
     this.studentService.getAssignments(body).subscribe(
       (response:any) => {
@@ -98,8 +101,8 @@ export class SubjectassignmentComponent implements OnInit {
               new ShowStudentAssignment(response[i]._id,response[i].name,status,createdAt)
             )
           }
-          
         }
+        // console.log(this.assignmentsComplete);
       },(error) => {
         console.log(error)
       }
@@ -119,8 +122,17 @@ export class SubjectassignmentComponent implements OnInit {
     return "EEE";
   }
   
-  getDescription(_id:string){
+
+  getDescription(_id:string,ind,section){
+    // console.log(section);
     this.getDescriptionLoading = true;
+    if(section === "pending"){
+      this.desSectionPending = true;
+    }
+    else{
+      this.desSectionPending = false;
+      this.assignmentDescription.createdAt = this.assignmentsComplete[ind].createdAt;
+    }
     this.studentService.getDescriptionOfAssignment(_id).subscribe(
       (response:any) => {
         // console.log(response);

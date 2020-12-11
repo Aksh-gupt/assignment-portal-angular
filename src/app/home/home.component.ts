@@ -30,18 +30,22 @@ export class HomeComponent implements OnInit {
   }
 
   toForget(){
+    document.getElementById("forgetmsg").innerHTML = "";
     const forgetBtn = document.getElementById('forget');
     const loginBtn = document.getElementById('login');
     forgetBtn.classList.remove('slide-up');
     loginBtn.classList.add('slide-up');
-    console.log(loginBtn);
+    this.forgetLinkSendSuccessfully = false;
+    // console.log(loginBtn);
   }
  
   toLogin(){
+    document.getElementById("forgetmsg").innerHTML = "";
     const forgetBtn = document.getElementById('forget');
     const loginBtn = document.getElementById('login');
     forgetBtn.classList.add('slide-up');
     loginBtn.classList.remove('slide-up');
+    this.forgetLinkSendSuccessfully = false;
   }
   user = {
     email : "",
@@ -118,6 +122,32 @@ export class HomeComponent implements OnInit {
     }
     // console.log(this.authority);
     // console.log(this.loginForm.value);
+  }
+
+  forgetFilled:boolean = false;
+  forgetAuthority:string = "student";
+  forgetEmail:string = "";
+  forgetLinkSendSuccessfully:boolean = false;
+  resetPassword(){
+    this.forgetFilled = true;
+    document.getElementById("forgetsubmit").innerHTML = "Loading...";
+    this.authService.forgotPassword(this.forgetEmail,this.forgetAuthority).subscribe(
+      (response:any) => {
+        // console.log(response);
+        this.forgetAuthority = "student";
+        this.forgetEmail = "";
+        document.getElementById("forgetmsg").innerHTML = response.text;
+        document.getElementById("forgetsubmit").innerHTML = "Submit";
+        this.forgetFilled = false;
+        this.forgetLinkSendSuccessfully = true;
+      },(error)=>{
+        // console.log(error);
+        console.log(error.error);
+        this.forgetFilled = false;
+        document.getElementById("forgetmsg").innerHTML = error.error.error;
+        document.getElementById("forgetsubmit").innerHTML = "Submit";
+      }
+    )
   }
 
 }

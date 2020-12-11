@@ -83,12 +83,31 @@
             <div class="forget slide-up" id="forget">
                 <div class="center">
                     <h2 class="form-title" (click)="toForget()" >Forget Password<span>??</span></h2>
-                    <div class="form-holder">
-                        <br/>
-                        <input type="email" class="input" placeholder="Email" />
-                    
+                    <p id="forgetmsg"></p>
+                    <div *ngIf="!forgetLinkSendSuccessfully">
+                        <div class="form-holder">
+                            <select name="authority" class="input" placeholder="type"
+                            [(ngModel)]="forgetAuthority">
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <br/>
+                            <input type="email" name="email" class="input" placeholder="Email" required
+                            [(ngModel)]="forgetEmail" email #email1="ngModel" />
+                            <div style="color: #f00; font-size: 13px;" *ngIf="email1.invalid && email1.touched">
+                                <div class="error" *ngIf="email1.errors.required">
+                                    Email is required.
+                                </div>
+                                <div *ngIf="email1.errors.email">
+                                    Please enter valid email.
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="resetPassword()" id="forgetsubmit" type="submit" class="submit-btn" [disabled]="forgetFilled || !email1.valid" >
+                            Submit
+                        </button>
                     </div>
-                    <button class="submit-btn">Submit</button>
                 </div>
             </div>
         </div>

@@ -99,13 +99,17 @@ export class AuthService{
                 this.adminService.getAllTeacher();
                 this.adminService.getAllStudent();
                 this.adminService.getAllSubject();
+                this.router.navigate(["/admin"]);
             }
             else if(this.authorise === 2){
                 this.teacherService.getSubjectName();
                 this.teacherService.getMySubject();
+                this.router.navigate(["/teacher"]);
             }
             else if(this.authorise === 1){
+                console.log("student");
                 this.studentService.getSubjects();
+                this.router.navigate(["/student"]);
             }
         }
         // this.retName();
@@ -203,22 +207,36 @@ export class AuthService{
         }
     }
 
-    forgotPassword(email:string){
+    forgotPassword(email:string,authrority:string){
+        if(this.token !== null){
+            alert("You are already logged in");
+        }
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         var data = {
             email: email
         }
-        // console.log(data);
-        return this.http.post('https://codestore-node.herokuapp.com/resetrequest', data,{headers: headers});
+        if(authrority === "student"){
+            return this.http.post('http://localhost:3000/student/forgotpassword', data,{headers: headers});
+        }
+        else if(authrority === "teacher"){
+            return this.http.post('http://localhost:3000/teacher/forgotpassword', data,{headers: headers});
+        }
+        return this.http.post('http://localhost:3000/admin/forgotpassword', data,{headers: headers});
+        
     }
 
-    resetPassword(_id:String, password:String){
+    resetPassword(_id:String, password:String,authrority:string){
         var data = {
             password: password
         }
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.post(`https://codestore-node.herokuapp.com/resetpass/${_id}`, data, {headers: headers});
+        if(authrority === "student"){
+            return this.http.post(`http://localhost:3000/student/resetpass/${_id}`, data, {headers: headers});
+        }
+        else if(authrority === "teacher"){
+            return this.http.post(`http://localhost:3000/teacher/resetpass/${_id}`, data, {headers: headers});
+        }
+        return this.http.post(`http://localhost:3000/admin/resetpass/${_id}`, data, {headers: headers});
     }
-
 
 }

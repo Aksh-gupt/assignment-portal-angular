@@ -1,10 +1,11 @@
 <nav class="navbar-inverse ">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
+            <li class="top">{{name}}</li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a  href="#"><span class="fas fa-book-open"></span> Subjects</a></li>
-            <li><a  href="#"><span class="fas fa-user"></span> Profile</a></li>
+            <li (click)="resetPassword()" *ngIf="!reset"><a >Reset password</a></li>
+            <li [routerLink]="['/student']" ><a><span class="fas fa-book-open"></span> Subjects</a></li>
             <li><a  (click)="onLogout()"><span class="fas fa-sign-out-alt"></span> Logout</a></li>
         </ul>
     </div>

@@ -32,7 +32,7 @@ export class AddStudentComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.addStudent.value);
+    // console.log(this.addStudent.value);
     this.filled = true;
     document.getElementById("submit").innerHTML = "Loading...";
     this.student.name = this.addStudent.value.name;
@@ -43,7 +43,7 @@ export class AddStudentComponent implements OnInit {
     bss = bss*10 + this.stream;
     this.student.bss = bss;
     this.student.password = this.addStudent.value.password;
-    console.log(this.student);
+    // console.log(this.student);
     this.adminService.createStudent(this.student).subscribe(
       (response: any) => {
         // console.log(response);

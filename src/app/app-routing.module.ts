@@ -16,6 +16,7 @@ import { StudentComponent } from './student/student.component';
 import { StudentsubjectComponent } from './student/studentsubject/studentsubject.component';
 import { SubjectassignmentComponent } from './student/subjectassignment/subjectassignment.component';
 import { StudentsubmissionComponent } from './teacher/studentsubmission/studentsubmission.component';
+import { ResetpasswordComponent } from './shared/resetpassword/resetpassword.component';
 
 const routes: Routes = [
   {path: '',component: HomeComponent},
@@ -39,6 +40,7 @@ const routes: Routes = [
     {path: 'assignments', component: SubjectassignmentComponent},
     {path: '**', redirectTo: 'subject'}
   ]},
+  {path:'resetpassword', component: ResetpasswordComponent},
   {path: '**',redirectTo: ""}
 ];
 
