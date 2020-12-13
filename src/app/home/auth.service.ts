@@ -93,27 +93,30 @@ export class AuthService{
         }
         else{
             const one = this.getCookieAuth()
-            console.log(this.getCookieAuth());
+            // console.log(this.getCookieAuth());
             this.authorise = parseInt(one);
             if(this.authorise === 3){
                 this.adminService.getAllTeacher();
                 this.adminService.getAllStudent();
                 this.adminService.getAllSubject();
-                this.router.navigate(["/admin"]);
+                // this.router.navigate(["/admin"]);
             }
             else if(this.authorise === 2){
                 this.teacherService.getSubjectName();
                 this.teacherService.getMySubject();
-                this.router.navigate(["/teacher"]);
+                // this.router.navigate(["/teacher"]);
             }
             else if(this.authorise === 1){
                 console.log("student");
                 this.studentService.getSubjects();
-                this.router.navigate(["/student"]);
+                // this.router.navigate(["/student"]);
             }
         }
         // this.retName();
         return true;
+    }
+    getAuthority(){
+        return this.authorise;
     }
 
     getToken(){

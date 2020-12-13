@@ -9,7 +9,9 @@ import { AuthService } from '../home/auth.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
+classApplied=false;
+isVisible = false; 
+isVisible1 = false; 
   constructor(private authService:AuthService, private router: Router) { }
   auth:boolean = false;
   ngOnInit() {
@@ -27,5 +29,27 @@ export class AdminComponent implements OnInit {
   onLogout(){
     this.authService.onLogout();
   }
+  onToggle() {
+    if(this.classApplied==true)
+    {this.isVisible=false;
+      this.isVisible1=false;
+    }
+    this.classApplied = !this.classApplied;
+  
+    
+  }
+  onSubToggle(){
+    this.isVisible=!this.isVisible;
+  }
+  onSubToggle1(){
+    this.isVisible1=!this.isVisible1;
+   
+  }
+  onLeave(){
+    if(this.classApplied==false)
+    {this.isVisible=false;
+      this.isVisible1=false;
 
+    }
+  }
 }

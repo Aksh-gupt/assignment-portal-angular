@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AllTeacherComponent } from './admin/all-teacher/all-teacher.component';
 import { SubjectpageComponent } from './teacher/subjectpage/subjectpage.component';
-import { ShowassignmentComponent } from './teacher/showassignment/showassignment.component';
 import { AssignmentComponent } from './teacher/assignment/assignment.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { SubjectComponent } from './admin/subject/subject.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
     {path:'subject', component: SubjectpageComponent},
     {path: 'assignments', component: AssignmentComponent},
     {path: 'assignment/submissions', component: StudentsubmissionComponent},
-    {path: 'assignment/:id', component: ShowassignmentComponent},
     {path: '**', redirectTo: 'subject'}
   ]},
   {path:'student', component: StudentComponent,children:[

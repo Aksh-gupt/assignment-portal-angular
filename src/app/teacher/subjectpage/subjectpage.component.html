@@ -1,6 +1,6 @@
 <div class="body">
     <a href="" data-toggle="modal" data-target="#NewSubject" style="margin-bottom:20px;"
-     class="btn btn-default add-button  col-md-offset-10  col-xs-offset-8" (click)="getName()">
+     class="btn btn-default add-button  col-md-offset-10  col-xs-offset-5 col-sm-offset-10" (click)="getName()">
         <span class="icon"><i class="fas fa-user-plus"></i></span>&nbsp; New Subject
     </a>
     
@@ -61,22 +61,14 @@
         <div class="row">
             <div style="cursor: pointer;" class="column" *ngFor="let subject of showMySubject">
                 <div class="card">
-                    <div class="card-body col-md-10" style="height:30px" [routerLink] = "['/teacher/assignments']" [queryParams]="{subid:subject.subid, bsss: subject.bsss}"></div>
-                    <div class="dropdown" style="float:right">
-                        <div data-toggle="dropdown">
-                            <i class="fas fa-ellipsis-h iconstyle"></i>
-                        </div>
-                        <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                            <li><a href="#"><i class="fa fa-edit"></i>  Edit</a></li>
-                        </ul>    
-                    </div>
+                    <div class="card-body col-md-11 col-xs-11 col-sm-11" style="height:30px" [routerLink] = "['/teacher/assignments']" [queryParams]="{subid:subject.subid, bsss: subject.bsss}"></div>
+                   <a class="delete-icon" href="#"><i class="fas fa-trash"></i></a>
                
                     <div class="card-body" [routerLink] = "['/teacher/assignments']" [queryParams]="{subid:subject.subid, bsss: subject.bsss}">
                         <div class="subject_name">
                             <h5>{{subject.name}}</h5>
                         </div>
-                        <br/>
+                    
                         <h6>{{subject.stream}}-{{subject.section}}</h6>
                         <h6>{{subject.sem}} semester</h6>
                     </div>

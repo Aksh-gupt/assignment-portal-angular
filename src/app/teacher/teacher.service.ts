@@ -152,8 +152,8 @@ export class TeacherService{
         }
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
-        console.log(this.dom.bypassSecurityTrustResourceUrl(`http://localhost:3000/assignment/${_id}`))
-        // return this.http.get(`http://localhost:3000/assignment/${_id}`,{headers: headers, responseType: 'blob'});
+        // console.log(this.dom.bypassSecurityTrustResourceUrl(`http://localhost:3000/assignment/${_id}`))
+        return this.http.get(`http://localhost:3000/assignment/pdf/teacher/${_id}`,{headers: headers, responseType: 'arraybuffer'});
     }
 
     changeStatusOfAssignmentSolution(data){

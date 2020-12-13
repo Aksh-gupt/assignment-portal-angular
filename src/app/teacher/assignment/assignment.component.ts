@@ -29,6 +29,8 @@ export class AssignmentComponent implements OnInit {
   allAssignment:ShowAllAssignment[] = []
   sem:number;
   room:string = "";
+
+  fileUrl;
   constructor(private route:ActivatedRoute, private teacherService:TeacherService) {
     this.filled = false;
     this.fileSelected = false;
@@ -187,6 +189,24 @@ export class AssignmentComponent implements OnInit {
       },(error) => {
         console.log(error);
         this.getAssignmentLoading = false;
+      }
+    )
+  }
+
+  getAssignmentPdf(_id:string){
+    this.teacherService.getAssignmentPdf(_id).subscribe(
+      (response:any) => {
+        console.log(response);
+        // saveAs(response, 'response.pdf');
+        var file = new Blob([response], {
+          type: 'application/pdf'
+      })
+      const url = window.URL;
+      this.fileUrl = url.createObjectURL(file);
+      window.open(this.fileUrl);
+      }
+      ,(error) => {
+        console.log(error.error.text)
       }
     )
   }

@@ -19,7 +19,6 @@ import { AllStudentComponent } from './admin/all-student/all-student.component';
 import { AllTeacherComponent } from './admin/all-teacher/all-teacher.component';
 import { SubjectComponent } from './admin/subject/subject.component';
 import { AssignmentComponent } from './teacher/assignment/assignment.component';
-import { ShowassignmentComponent } from './teacher/showassignment/showassignment.component';
 import { SubjectpageComponent } from './teacher/subjectpage/subjectpage.component';
 import { StudentsubjectComponent } from './student/studentsubject/studentsubject.component';
 import { StudentService } from './student/student.service';
@@ -40,7 +39,6 @@ import { ResetpasswordComponent } from './shared/resetpassword/resetpassword.com
     AllTeacherComponent,
     SubjectComponent,
     AssignmentComponent,
-    ShowassignmentComponent,
     SubjectpageComponent,
     StudentsubjectComponent,
     SubjectassignmentComponent,

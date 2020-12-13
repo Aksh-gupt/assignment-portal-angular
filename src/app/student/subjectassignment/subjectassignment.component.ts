@@ -31,7 +31,7 @@ export class SubjectassignmentComponent implements OnInit {
     createdAt: ""
   }
 
-  
+  fileUrl;  // This is to store the file pdf i.e. document of assignment
   
   constructor(private route:ActivatedRoute, private studentService:StudentService) {
     this.getDescriptionLoading = false;
@@ -159,9 +159,35 @@ export class SubjectassignmentComponent implements OnInit {
     document.getElementById("dropzone").className = "dropzone";
     return false;
   }
+  dragOverEffectUpdate(){
+    document.getElementById("dropzone-update").className = "dropzone dragover";
+    return false;
+  }
+  dragLeaveEffectUpdate(){
+    document.getElementById("dropzone-update").className = "dropzone";
+    return false;
+  }
   drop(event){
     event.preventDefault();
     document.getElementById("dropzone").className = 'dropzone'
+    // console.log(event.dataTransfer.files);
+    this.manyFiles = false;
+    this.docFormat = true;
+    if(event.dataTransfer.files.length > 1){
+      this.manyFiles = true;
+    }
+    else if(!event.dataTransfer.files[0].name.endsWith(".pdf")){
+      this.docFormat = false;
+    }
+    else{
+      this.fileSelected = true;
+      this.AssignmentFile = <File>event.dataTransfer.files[0];
+    }
+  }
+
+  dropUpdate(event){
+    event.preventDefault();
+    document.getElementById("dropzone-update").className = 'dropzone'
     // console.log(event.dataTransfer.files);
     this.manyFiles = false;
     this.docFormat = true;
@@ -264,6 +290,24 @@ export class SubjectassignmentComponent implements OnInit {
         this.submitSuccessfully = true;
       },(error) => {
         console.log(error)
+      }
+    )
+  }
+
+  getAssignmentPdf(_id:string){
+    this.studentService.getAssignmentPdf(_id).subscribe(
+      (response:any) => {
+        console.log(response);
+        // saveAs(response, 'response.pdf');
+        var file = new Blob([response], {
+          type: 'application/pdf'
+      })
+      const url = window.URL;
+      this.fileUrl = url.createObjectURL(file);
+      window.open(this.fileUrl);
+      }
+      ,(error) => {
+        console.log(error.error.text)
       }
     )
   }

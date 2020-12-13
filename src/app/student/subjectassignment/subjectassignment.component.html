@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="column" *ngFor="let assignment of assignmentsPending; let i = index">
                     <div class="card">
-                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div (click)="getAssignmentPdf(assignment._id)" class="card-body col-md-10" style="height:30px"></div>
                         <div class="dropdown" style="float:right">
                             <div data-toggle="dropdown">
                                 <i class="fas fa-ellipsis-h iconstyle"></i>
@@ -22,7 +22,7 @@
                                 <li (click)="getDescription(assignment._id,i,'pending')" ><a href="#infoModal" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i>  Info</a></li>
                             </ul>    
                         </div>
-                        <div class="card-body">
+                        <div (click)="getAssignmentPdf(assignment._id)" class="card-body">
                             <div class="subject_name">
                                 <h5>{{assignment.name}}</h5>
                                 <br/>
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="column" *ngFor="let assignment of assignmentsComplete; let i = index">
                     <div class="card">
-                        <div class="card-body col-md-10" style="height:30px"></div>
+                        <div (click)="getAssignmentPdf(assignment._id)" class="card-body col-md-10" style="height:30px"></div>
                         <div class="dropdown" style="float:right">
                             <div data-toggle="dropdown">
                                 <i class="fas fa-ellipsis-h iconstyle"></i>
@@ -59,7 +59,7 @@
                                 
                             </ul>    
                         </div>
-                        <div class="card-body">
+                        <div (click)="getAssignmentPdf(assignment._id)" class="card-body">
                             <div class="subject_name">  <h5>{{assignment.name}}</h5>
                             <br/>
                             </div>
@@ -160,8 +160,8 @@
             <div class="modal-body"> 
                 <div *ngIf="!submitSuccessfully">
                     
-                    <div class="dropzone" id="dropzone" (drop)="drop($event)" 
-                    (dragover)="dragOverEffect()" (dragleave)="dragLeaveEffect()" >
+                    <div class="dropzone" id="dropzone-update" (drop)="dropUpdate($event)" 
+                    (dragover)="dragOverEffectUpdate()" (dragleave)="dragLeaveEffectUpdate()" >
                     <div class="file" *ngIf="!AssignmentFile"><i  class="fas fa-cloud-upload-alt cloudstyle"></i></div>
                     <div class="file" *ngIf="AssignmentFile">{{AssignmentFile.name}}</div>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

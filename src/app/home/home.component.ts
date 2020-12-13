@@ -21,6 +21,16 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
+    var desgination = this.authService.getAuthority();
+    if(desgination === 3){
+      this.router.navigate(["/admin"]);
+    }
+    else if(desgination === 2){
+        this.router.navigate(["/teacher"]);
+    }
+    else if(desgination === 1){
+        this.router.navigate(["/student"]);
+    }
     if(this.authority === "student"){
       this.criteria = "Enrollment number"
     }

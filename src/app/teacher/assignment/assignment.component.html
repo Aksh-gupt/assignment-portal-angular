@@ -1,12 +1,12 @@
 <div class="body">
-    <a href="" class="btn btn-default add-button  col-md-offset-10 col-xs-offset-8 col-offset-7" data-toggle="modal" data-target="#NewAssignment"> <span class="icon"><i class="fas fa-user-plus"></i></span>&nbsp; New Assignment</a>
+    <a href="" class="btn btn-default add-button  col-md-offset-10 col-xs-offset-5 col-sm-offset-9 " data-toggle="modal" data-target="#NewAssignment"> <span class="icon"><i class="fas fa-user-plus"></i></span>&nbsp; New Assignment</a>
             <!-- Modal -->   
     <div class="modal fade" id="NewAssignment" role="dialog">
         <div class="modal-dialog">
         
             <!-- Modal content-->
             <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <form class="signup" (ngSubmit)="onSubmit(f)" #f="ngForm" autocomplete="off">
@@ -83,7 +83,8 @@
     
             <div class="column" *ngFor="let assignment of allAssignment; let i = index">
                 <div class="card">
-                    <div class="card-body col-md-10" style="height:30px" ></div>
+                    <div (click)="getAssignmentPdf(assignment._id)"
+                     class="card-body col-md-10 col-xs-10 col-sm-10" style="height:30px" ></div>
                     <div class="dropdown" style="float:right">
                         <div data-toggle="dropdown">
                             <i class="fas fa-ellipsis-h iconstyle"></i>
@@ -107,7 +108,7 @@
                         </ul>    
                     </div>
                         
-                    <div class="card-body">
+                    <div class="card-body" (click)="getAssignmentPdf(assignment._id)">
                         <div class="assignment-name">
                         <h5>{{assignment.name}}</h5>
                         </div>
@@ -145,13 +146,13 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
-                <h3>Assignment Details</h3> 
+                <button class="close"  data-dismiss="modal">&times;</button>
+              <h4>Assignment Details</h4> 
             </div>
             <div class="modal-body">
                 <div style="overflow-x:auto;">
                    <div *ngIf="getAssignmentLoading">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.75 22c0 .966-.783 1.75-1.75 1.75s-1.75-.784-1.75-1.75.783-1.75 1.75-1.75 1.75.784 1.75 1.75zm-1.75-22c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 10.75c.689 0 1.249.561 1.249 1.25 0 .69-.56 1.25-1.249 1.25-.69 0-1.249-.559-1.249-1.25 0-.689.559-1.25 1.249-1.25zm-22 1.25c0 1.105.896 2 2 2s2-.895 2-2c0-1.104-.896-2-2-2s-2 .896-2 2zm19-8c.551 0 1 .449 1 1 0 .553-.449 1.002-1 1-.551 0-1-.447-1-.998 0-.553.449-1.002 1-1.002zm0 13.5c.828 0 1.5.672 1.5 1.5s-.672 1.501-1.502 1.5c-.826 0-1.498-.671-1.498-1.499 0-.829.672-1.501 1.5-1.501zm-14-14.5c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2z"/></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M13.75 22c0 .966-.783 1.75-1.75 1.75s-1.75-.784-1.75-1.75.783-1.75 1.75-1.75 1.75.784 1.75 1.75zm-1.75-22c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 10.75c.689 0 1.249.561 1.249 1.25 0 .69-.56 1.25-1.249 1.25-.69 0-1.249-.559-1.249-1.25 0-.689.559-1.25 1.249-1.25zm-22 1.25c0 1.105.896 2 2 2s2-.895 2-2c0-1.104-.896-2-2-2s-2 .896-2 2zm19-8c.551 0 1 .449 1 1 0 .553-.449 1.002-1 1-.551 0-1-.447-1-.998 0-.553.449-1.002 1-1.002zm0 13.5c.828 0 1.5.672 1.5 1.5s-.672 1.501-1.502 1.5c-.826 0-1.498-.671-1.498-1.499 0-.829.672-1.501 1.5-1.501zm-14-14.5c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2zm0 14c1.104 0 2 .896 2 2s-.896 2-2.001 2c-1.103 0-1.999-.895-1.999-2s.896-2 2-2z"/></svg>
                     </div>
                     <div *ngIf="!getAssignmentLoading"> 
                         <table style="margin-left: 20px;">
@@ -174,12 +175,12 @@
 <div class="modal" id="editModal">
     <div class="modal-dialog ">
         <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div *ngIf="!updateLastDateSuccessfully">
                 <form class="signup" (ngSubmit)="updateSubmissionLastDate()" #up="ngForm" autocomplete="off">
-                    <h3>UPDATE ASSIGNMENT</h3>
+                    <h4>UPDATE ASSIGNMENT</h4>
                     <br/>
                     <p id="msg"></p>
                     <div class="signup__field_outer ">
