@@ -152,8 +152,20 @@ export class TeacherService{
         }
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
-        // console.log(this.dom.bypassSecurityTrustResourceUrl(`http://localhost:3000/assignment/${_id}`))
         return this.http.get(`http://localhost:3000/assignment/pdf/teacher/${_id}`,{headers: headers, responseType: 'arraybuffer'});
+    }
+
+    getSubmissionPdf(_id,subid){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 2){
+            alert("Please login as teacher");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/teacher/submission/pdf/${subid}/${_id}`,{headers:headers, responseType: 'arraybuffer'});
     }
 
     changeStatusOfAssignmentSolution(data){

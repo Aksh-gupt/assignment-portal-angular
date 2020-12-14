@@ -12,47 +12,54 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <form class="signup" (ngSubmit)="onSubmit()" #f="ngForm" autocomplete="off">
-                    <h3>ADD SUBJECT</h3>
-                    <br/>
-                    <div class="signup__field">
-                        <select class="signup__input" type="text" name="name" id="name" required 
-                         [(ngModel)] = "formName" >
-                            <option *ngFor="let name of subjectsName" value={{name}}>{{name}}</option>
-                        </select>
-                        <label class="signup__label" for="subject_name">Subject Name</label>
-                    </div>
-                
-                    <div class="signup__field">
-                        <select class="signup__input" type="text" name="stream" id="stream" required
-                        [(ngModel)]="formStream" >
-                            <option value="1">CSE</option>
-                            <option value="2">IT</option>
-                            <option value="3">ECE</option>
-                            <option value="4">EEE</option>
-                        </select>
-                        <label class="signup__label" for="stream">Stream</label>
-                    </div>
-    
-                    <div class="signup__field">
-                        <select class="signup__input" type="text" name="semester" id="semester" required
-                         [(ngModel)]="formSemester" >
-                            <option *ngFor="let sem of semesters" value={{sem}}>{{sem}}</option>
-                        </select>
-                        <label class="signup__label" for="semester">Semester</label>
-                    </div>
-    
-                    <div class="signup__field">
-                        <select class="signup__input" type="text" name="section" id="section" required
-                         [(ngModel)] = "formSection">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                        <label class="signup__label" for="section">Section</label>
-                    </div>
-    
-                    <button type="submit" class="submit" id="submit" [disabled]="filled && !f.valid" >Add <span class="glyphicon glyphicon-send"></span></button>
-                </form>
+                <div *ngIf="formSubmitSuccessfully" style="margin-top: 40px;margin-left: 40px;">
+                    Subject added successfully.
+                </div>
+                <div *ngIf="!formSubmitSuccessfully">
+                    <form class="signup" (ngSubmit)="onSubmit()" #f="ngForm" autocomplete="off">
+                        <h3>ADD SUBJECT</h3>
+                        <br/>
+                        <div class="signup__field">
+                            <select class="signup__input" type="text" name="name" id="name" required 
+                            [(ngModel)] = "formName" >
+                                <option *ngFor="let name of subjectsName" value={{name}}>{{name}}</option>
+                            </select>
+                            <label class="signup__label" for="subject_name">Subject Name</label>
+                        </div>
+                    
+                        <div class="signup__field">
+                            <select class="signup__input" type="text" name="stream" id="stream" required
+                            [(ngModel)]="formStream" >
+                                <option value="1">CSE</option>
+                                <option value="2">IT</option>
+                                <option value="3">ECE</option>
+                                <option value="4">EEE</option>
+                            </select>
+                            <label class="signup__label" for="stream">Stream</label>
+                        </div>
+        
+                        <div class="signup__field">
+                            <select class="signup__input" type="text" name="semester" id="semester" required
+                            [(ngModel)]="formSemester" >
+                                <option *ngFor="let sem of semesters" value={{sem}}>{{sem}}</option>
+                            </select>
+                            <label class="signup__label" for="semester">Semester</label>
+                        </div>
+        
+                        <div class="signup__field">
+                            <select class="signup__input" type="text" name="section" id="section" required
+                            [(ngModel)] = "formSection">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                            <label class="signup__label" for="section">Section</label>
+                        </div>
+        
+                        <button type="submit" class="submit" id="submit" [disabled]="filled && !f.valid" >
+                            Add <span class="glyphicon glyphicon-send"></span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

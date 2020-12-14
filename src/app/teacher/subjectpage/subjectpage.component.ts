@@ -22,6 +22,7 @@ export class SubjectpageComponent implements OnInit {
   formStream:string = "1";
   formSemester:number;
   formSection:string = "1";
+  formSubmitSuccessfully:boolean = false;
 
   constructor(private teacherService:TeacherService) {
     this.filled = false;
@@ -47,7 +48,7 @@ export class SubjectpageComponent implements OnInit {
       (subjects:Teach[]) => {
         const mySubjects:Teach[] = subjects;
         this.fullConvert(mySubjects);
-        console.log(mySubjects);
+        // console.log(mySubjects);
       }
     ) 
   }
@@ -102,6 +103,10 @@ export class SubjectpageComponent implements OnInit {
         this.formName = this.subjectsName[0];
       }
     },1000)
+    this.formSubmitSuccessfully = false;
+    this.formName = this.subjectsName[0];
+    this.formSection = "1";
+    this.formStream = "1";
   }
   
   // IN THIS WE ALSO HAVE TO CHECK IF THIS SUBJECT THAT TEACHER WANT TO ADD IS ALREADY PRESENT OR NOT
@@ -135,9 +140,7 @@ export class SubjectpageComponent implements OnInit {
             this.showMySubject.push(
               new Showteach(response.bsss,response.subject,response.subid)
             )
-            this.formName = this.subjectsName[0];
-            this.formSection = "1";
-            this.formStream = "1";
+            this.formSubmitSuccessfully = true;
         },(error) => {
             console.log(error);
         }

@@ -128,8 +128,20 @@ export class StudentService{
         }
         const headers = new HttpHeaders({'Authorization': `${token}`});
         headers.append('Content-Type', 'application/json');
-        // console.log(this.dom.bypassSecurityTrustResourceUrl(`http://localhost:3000/assignment/${_id}`))
         return this.http.get(`http://localhost:3000/assignment/pdf/student/${_id}`,{headers: headers, responseType: 'arraybuffer'});
+    }
+
+    getSubmissionPdf(subid, assignmentid){
+        var token = this.getCookieToken();
+        token = 'Bearer ' + token;
+        var auth = parseInt(this.getCookieAuth());
+        if(auth != 1){
+            alert("Please login as student");
+            return;
+        }
+        const headers = new HttpHeaders({'Authorization': `${token}`});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(`http://localhost:3000/student/mysubmission/pdf/${subid}/${assignmentid}`,{headers:headers, responseType: 'arraybuffer'});
     }
 
     resetPassword(){

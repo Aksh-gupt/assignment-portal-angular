@@ -11,14 +11,19 @@ import { ShowAllAssignment } from '../../shared/showallassignment.model';
   styleUrls: ['./assignment.component.css']
 })
 export class AssignmentComponent implements OnInit {
+  present:boolean = false;
+
   filled:boolean = false;
-  filledUpdateDate:boolean = false;
   fileToUpload: File = null;
   fileSelected:boolean = false;
   docFormat:boolean = true;
+  assignLastDate:string;
+  newassignmentaddedsuccessfully:boolean = false;
+
   subid:string;
   bsss:string;
 
+  filledUpdateDate:boolean = false;
   updateLastDate:string;
   currentLastDate:string;
   todaysDate:string;
@@ -77,11 +82,17 @@ export class AssignmentComponent implements OnInit {
       (response:ShowAllAssignment[]) => {
         // console.log(response)
         this.allAssignment = response;
-        console.log(this.allAssignment);
+        // console.log(this.allAssignment);
+        this.present = true;
       },(error) => {
         console.log(error)
       }
     )
+  }
+
+  newAssignmentCalls(){
+    this.assignLastDate = null;
+    this.newassignmentaddedsuccessfully = false;
   }
 
   onFileSelected(event){
@@ -131,7 +142,9 @@ export class AssignmentComponent implements OnInit {
           new ShowAllAssignment(response._id,response.name,response.last)
         )
         this.filled = false;
-        document.getElementById("submit").innerHTML = "Add <span class='glyphicon glyphicon-send'></span>"
+        document.getElementById("submit").innerHTML = "Add <span class='glyphicon glyphicon-send'></span>";
+        f.reset();
+        this.newassignmentaddedsuccessfully = true;
       },(error) =>{
         console.log(error)
         this.filled = false;
@@ -196,7 +209,7 @@ export class AssignmentComponent implements OnInit {
   getAssignmentPdf(_id:string){
     this.teacherService.getAssignmentPdf(_id).subscribe(
       (response:any) => {
-        console.log(response);
+        // console.log(response);
         // saveAs(response, 'response.pdf');
         var file = new Blob([response], {
           type: 'application/pdf'

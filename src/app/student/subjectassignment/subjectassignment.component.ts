@@ -31,7 +31,6 @@ export class SubjectassignmentComponent implements OnInit {
     createdAt: ""
   }
 
-  fileUrl;  // This is to store the file pdf i.e. document of assignment
   
   constructor(private route:ActivatedRoute, private studentService:StudentService) {
     this.getDescriptionLoading = false;
@@ -297,17 +296,32 @@ export class SubjectassignmentComponent implements OnInit {
   getAssignmentPdf(_id:string){
     this.studentService.getAssignmentPdf(_id).subscribe(
       (response:any) => {
-        console.log(response);
+        // console.log(response);
         // saveAs(response, 'response.pdf');
         var file = new Blob([response], {
           type: 'application/pdf'
       })
       const url = window.URL;
-      this.fileUrl = url.createObjectURL(file);
-      window.open(this.fileUrl);
+      var assignmentUrl = url.createObjectURL(file);
+      window.open(assignmentUrl);
       }
       ,(error) => {
         console.log(error.error.text)
+      }
+    )
+  }
+
+  getSubmissionPdf(_id){
+    this.studentService.getSubmissionPdf(this.subid,_id).subscribe(
+      (response:any) => {
+        var file = new Blob([response], {
+          type: 'application/pdf'
+        })
+        const url = window.URL;
+        var submissionUrl = url.createObjectURL(file);
+        window.open(submissionUrl);
+      },(error) => {
+        console.log(error.error);
       }
     )
   }

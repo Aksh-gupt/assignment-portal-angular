@@ -17,6 +17,8 @@ export class StudentsubmissionComponent implements OnInit {
   ownerEnrollmentStore:String[] = [];
   ownerEnrollment:String;
   enrollPresent:boolean = false;
+
+  fileUrl;
   constructor(private route:ActivatedRoute, private teacherService:TeacherService) { }
 
   ngOnInit(): void {
@@ -96,6 +98,20 @@ export class StudentsubmissionComponent implements OnInit {
         this.submittedStudent[ind].status = response.status;
       },(error) => {
         console.log(error);
+      }
+    )
+  }
+
+  getSubmissionPdf(_id:string){
+    // console.log(_id);
+    this.teacherService.getSubmissionPdf(_id,this.subid).subscribe(
+      (response:any) => {
+        var file = new Blob([response], {
+          type: 'application/pdf'
+        })
+        const url = window.URL;
+        this.fileUrl = url.createObjectURL(file);
+        window.open(this.fileUrl);
       }
     )
   }

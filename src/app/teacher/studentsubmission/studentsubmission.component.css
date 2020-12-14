@@ -193,3 +193,9 @@ table {
   .fa-close:hover{
       color: #f00;
   }
+  .submission{
+      cursor: pointer;
+  }
+  .submission:hover{
+      text-decoration: underline;
+  }
